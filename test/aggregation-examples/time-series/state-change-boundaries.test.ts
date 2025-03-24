@@ -10,7 +10,7 @@ import { DEFAULT_OPTS, ISODate } from "../../support";
  * See {@link https://www.practical-mongodb-aggregations.com/examples/time-series/state-change-boundaries.html}
  */
 describe("State Change Boundaries", () => {
-  const device_status = [
+  let device_status = [
     {
       deviceID: "HEATER-111",
       timestamp: ISODate("2021-07-03T11:09:00Z"),
@@ -58,7 +58,7 @@ describe("State Change Boundaries", () => {
     }
   ];
 
-  const pipeline = [
+  let pipeline = [
     // Capture previous and next records' state into new fields in this current record
     {
       $setWindowFields: {
@@ -183,7 +183,7 @@ describe("State Change Boundaries", () => {
   ];
 
   it("captures the duration between two state change boundaries (on→off or off→on) for each device", () => {
-    const result = aggregate(device_status, pipeline, DEFAULT_OPTS);
+    let result = aggregate(device_status, pipeline, DEFAULT_OPTS);
     expect(result).toEqual([
       {
         deviceID: "DEHUMIDIFIER-555",
